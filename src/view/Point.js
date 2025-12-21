@@ -1,37 +1,32 @@
 export default class PointView {
-    constructor() {
+    constructor({ point, destination, offers }) {
+      this.point = point;
+      this.destination = destination;
+      this.offers = offers;
       this.element = null;
     }
   
     getTemplate() {
       return `
         <div class="event">
-        <time class="event__date" datetime="2019-03-18">MAR 18</time>
-        <div class="event__type">
-          <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
-        </div>
-        <h3 class="event__title">Taxi Amsterdam</h3>
-        <div class="event__schedule">
-          <p class="event__time">
-            <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
-            &mdash;
-            <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
+          <h3 class="event__title">
+            ${this.point.type} ${this.destination.name}
+          </h3>
+  
+          <p class="event__price">
+            € ${this.point.basePrice}
           </p>
-          <p class="event__duration">30M</p>
         </div>
-        <p class="event__price">
-          &euro;&nbsp;<span class="event__price-value">20</span>
-        </p>
-      </div>
       `;
     }
   
     getElement() {
       if (!this.element) {
-        const temp = document.createElement('div');
-        temp.innerHTML = this.getTemplate();
-        this.element = temp.firstElementChild;
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = this.getTemplate();
+        this.element = wrapper.firstElementChild;
       }
+  
       return this.element;
     }
   }
